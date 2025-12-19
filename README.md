@@ -1,5 +1,5 @@
 # BE_POO_Template
 # Premier Module
 
-MOdule 1 à faire
+Module des fils à finir, j'ai juste relié le module à la bombe
 

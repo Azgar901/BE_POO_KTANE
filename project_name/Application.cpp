@@ -4,6 +4,8 @@
  * @brief Fichier source de l'application
  *********************************************************************/
 #include "Application.h"
+#include "Bombe.hpp"
+#include <Arduino.h>
 
 
 Application::Application()
@@ -20,13 +22,15 @@ Application::~Application()
 
 void Application::init(void)
 {
-  // Code
+  bombe = Bomb();
     ;
 }
 
 
 void Application::run(void)
 {
-  // Code
+  bombe.Verify();
+  delay(5000);
+  bombe.Update=1;
     ;
 }
