@@ -3,3 +3,12 @@
 //
 
 #include "ModuleBase.hpp"
+#include "Bombe.hpp"
+
+ModuleBase::ModuleBase(Bomb * bomb) {
+    this->bombp = bomb; // On donne l'adresse de la bombe
+}
+
+void ModuleBase::Made_Error() {
+    bombp->AddError();
+}

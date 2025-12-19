@@ -4,12 +4,17 @@
 
 #ifndef BE_POO_KTANE_MODULEBASE_HPP
 #define BE_POO_KTANE_MODULEBASE_HPP
+
+class Bomb;
+
 class ModuleBase {
     int led;
+    Bomb * bombp; // Pointeur vers la bombe
     public:
 
-    ModuleBase(); // Constructeur de base
+     ModuleBase(Bomb* bomb);
 
+    void Made_Error();
 
 
     ~ModuleBase(); // Destructeur de base
