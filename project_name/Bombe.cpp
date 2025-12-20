@@ -37,34 +37,43 @@ void Bomb::AddError(){
 void Bomb::Verify() {
     if ( Update == 1) {
         Update = 0;
+        AddError();
         Print_Error( Error); // On affiche Err 1 ou Err 2
         Allume_LED_Error();
     }
 }
 
+TM1637Display display(CLK, DIO);
 
-void Bomb::Print_Error(int error) {
-    if (error==1){
+void Bomb::Print_Error(int e) {
+    display.clear();
+
+    if (e==1){
         const uint8_t SEG_Err[] = {
-            SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,            // E
+            SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
             SEG_E | SEG_G,                                   // r
             SEG_E | SEG_G,                                   // r
-            SEG_C | SEG_B                                    //1
+            SEG_C | SEG_B                                    // 1
         };
+        display.setBrightness(0x0f);
+        display.setSegments(SEG_Err);
     }
-    else{
+    if (e==2){
         const uint8_t SEG_Err[] = {
-             SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,            // E
+             SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
              SEG_E | SEG_G,                                   // r
              SEG_E | SEG_G,                                   // r
-             SEG_A | SEG_B | SEG_D | SEG_E | SEG_G            //2
+             SEG_A | SEG_B | SEG_D | SEG_E | SEG_G            // 2
 	    };
+        display.setBrightness(0x0f);
+        display.setSegments(SEG_Err);
     }
+    
 }
 
 void Bomb::Allume_LED_Error(){
-    if (digitalRead(LED_err_1)==HIGH)
+    if (digitalRead(LED_err_1)==HIGH)    // Si la LED 1 est allume on allume la deuxieme
         digitalWrite(LED_err_2, HIGH);
-    if(digitalRead(LED_err_1)==LOW)
+    if(digitalRead(LED_err_1)==LOW)      // Si la LED 1 est eteinte on l'allume
         digitalWrite(LED_err_1, HIGH);
 }
