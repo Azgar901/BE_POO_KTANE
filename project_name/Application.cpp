@@ -7,7 +7,7 @@
 #include "Bombe.hpp"
 #include <Arduino.h>
 #include <TM1637Display.h>
-
+#include "Thread.h"
 
 
 Application::Application()
@@ -32,9 +32,6 @@ void Application::init(void)
 void Application::run(void)
 {
   bombe.Verify();
-  delay(5000);
-
-
-  bombe.Update=1;
+  ThreadModule.stateThread();
     ;
 }

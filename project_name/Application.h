@@ -6,6 +6,8 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 #include "Bombe.hpp"
+#include "Thread.h"
+
 /**
   * @class Application
   * @brief Classe Application 
@@ -15,6 +17,7 @@ class Application
   public :
 
     Bomb bombe;
+    Thread ThreadModule=Thread(&bombe);
     /**
      * @fn Application();
      * @brief Constructeur par defaut
