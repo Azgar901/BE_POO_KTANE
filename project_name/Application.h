@@ -1,11 +1,11 @@
 /*********************************************************************
  * @file  Apllication.h
- * @author <mettre l'adresse mail ou nom prenom>
+ * @author <MELADE Ulrich -- LELE Bernys>
  * @brief Fichier header de l'application
  *********************************************************************/
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
-
+#include "Bombe.hpp"
 /**
   * @class Application
   * @brief Classe Application 
@@ -13,6 +13,8 @@
 class Application
 {
   public :
+
+    Bomb bombe;
     /**
      * @fn Application();
      * @brief Constructeur par defaut

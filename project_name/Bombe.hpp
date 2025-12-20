@@ -16,11 +16,18 @@ class Bomb {
     int Error=0;
 
     public:
+    int Update=0;
+
     Bomb();
 
     void AddError();
 
-    ~Bomb();
+    void Verify();
+
+    void Allume_LED_Error();
+
+    void Print_Error(int err);
+
 };
 
 #endif //BE_POO_KTANE_BOMBE_HPP
