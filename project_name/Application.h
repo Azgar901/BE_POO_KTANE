@@ -7,6 +7,7 @@
 #define APPLICATION_H_
 #include "Bombe.hpp"
 #include "Thread.h"
+#include "Timer.hpp"
 
 /**
   * @class Application
@@ -14,10 +15,11 @@
 */    
 class Application
 {
-  public :
-
     Bomb bombe;
-    Thread ThreadModule=Thread(&bombe);
+    Thread ThreadModule;
+    Timer Timer_;
+
+  public :
     /**
      * @fn Application();
      * @brief Constructeur par defaut
@@ -38,5 +40,9 @@ class Application
      * @brief Fonction de lancement de l'application
     */
     void run(void);
+
+    void updateTimerFromISR(void);
+
+    static Application* instance;
 };
 #endif
