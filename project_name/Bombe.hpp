@@ -14,11 +14,13 @@ class Bomb {
     char Port;
     int Timer;
     int Error=0;
-
+    friend class Timer;
     public:
     int Update=0;
 
     Bomb();
+
+    void AddTimer();
 
     void AddError();
 

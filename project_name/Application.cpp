@@ -7,34 +7,40 @@
 #include "Bombe.hpp"
 #include <Arduino.h>
 #include <TM1637Display.h>
+#include "Thread.h"
+#include "Timer.hpp"
 
+Application* Application::instance = nullptr;
 
-
-Application::Application()
+Application::Application() : bombe(), ThreadModule(&bombe), Timer_(&bombe)
 {
-  // Code
-  ; 
+      instance = this;
 }
   
 Application::~Application()
 {
-  // Code
-  ;
+  instance=nullptr;
 }  
 
 void Application::init(void)
 {
-  bombe = Bomb();
+  ThreadModule.initPin()
     ;
 }
 
+void Application::updateTimerFromISR() {
+  Timer_.update();
+}
+
+ISR(TIMER1_OVF_vect) {
+  if (Application::instance != nullptr) {
+    Application::instance->updateTimerFromISR();
+  }
+}
 
 void Application::run(void)
 {
   bombe.Verify();
-  delay(5000);
-
-
-  bombe.Update=1;
+  //ThreadModule.stateThread();
     ;
 }
