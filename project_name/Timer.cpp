@@ -14,18 +14,22 @@
 
 extern TM1637Display display;
 
-volatile int interrupt_counter = 0;
+// Mode CTC: interruption déclenchée exactement toutes les 1 seconde
 
 Timer::Timer(Bomb * b) {
     MaxTime = b->Timer;
 
     display.setBrightness(0x0f);
-    //Programmation de l'interruption toutes les 30ms
+    //Programmation de l'interruption toutes les 1s en mode CTC
     noInterrupts();
-    TCCR1A=0; // On active TIM 1
-    TCCR1B=0;
-    TCCR1B |= 0b00000101; // prescaler = 1024
-    TIMSK1 |= 0b00000001; // on active l'interruption en overflow
+    TCCR1A = 0;           // Reset registre A
+    TCCR1B = 0;           // Reset registre B
+    TCNT1 = 0;            // Reset compteur
+    OCR1A = 15624; // OCR1A = (16MHz / (prescaler * frequence)) - 1
+    
+    TCCR1B |= (1 << WGM12);   // Mode CTC (Clear Timer on Compare Match)
+    TCCR1B |= (1 << CS12) | (1 << CS10);  // Prescaler = 1024
+    TIMSK1 |= (1 << OCIE1A);  // Active l'interruption sur Compare Match A
     interrupts();
 }
 
@@ -41,19 +45,12 @@ void Timer::begin() {
 }
 
 void Timer::update() {
-    interrupt_counter++;
-    if (interrupt_counter > 460){
-        interrupt_counter = 0;
-        MaxTime--;
-        if (MaxTime >=0){
-            int seconde;
-            int minute;
-            seconde = MaxTime%60;
-            minute = MaxTime/60;
-            display.clear();
-            display.showNumberDecEx(seconde, (0x80 >> 1), false);
-            display.showNumberDecEx(minute, (0x80 >> 1), false, 2);
-
-            }
+    MaxTime--;
+    if (MaxTime >= 0) {
+        int seconde = MaxTime % 60;
+        int minute = MaxTime / 60;
+        display.clear();
+        display.showNumberDecEx(seconde, (0x80 >> 1), false);
+        display.showNumberDecEx(minute, (0x80 >> 1), false, 2);
     }
 }

@@ -11,23 +11,27 @@ void Thread::initPin() {
     if ( i%2==1)
       pinMode(i, INPUT_PULLUP);
   }
+      pinMode(32, OUTPUT);
 }
 
 
 void Thread:: stateThread(){
-
+if (led==0){
   int state;
   for (int i=31;i<40; i++){
     if (i%2==1){
       state=digitalRead(i); 
       if(state==HIGH){
-        if (CuttedThread==0) {
           if (i!=31){
             bombp->AddError();
-            CuttedThread=CuttedThread+1;
+            bombp->AddError();
+            bombp->AddError();
+          }
+          else{
+            led=1;
+            digitalWrite(32, HIGH);
           }
         }
       }
-    }
   }
 }

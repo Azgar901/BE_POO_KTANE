@@ -7,7 +7,6 @@
 
 
 class Thread : public ModuleBase {
-  int CuttedThread=0;
   public: 
     Thread(Bomb *bomb);
     void initPin();

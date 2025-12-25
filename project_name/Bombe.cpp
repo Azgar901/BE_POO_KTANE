@@ -35,15 +35,15 @@ void Bomb::AddError(){
     Update=1;
 }
 
-void Bomb::AddTimer() {
-    display.clear();
-}
-
 void Bomb::Verify() {
     if ( Update == 1) {
         Update = 0;
         Print_Error( Error); // On affiche Err 1 ou Err 2
         Allume_LED_Error();
+        if ( Error == 2 ){
+            delay(500);
+            display.clear();
+        }
     }
 }
 
@@ -79,4 +79,8 @@ void Bomb::Allume_LED_Error(){
         digitalWrite(LED_err_2, HIGH);
     if(digitalRead(LED_err_1)==LOW)      // Si la LED 1 est eteinte on l'allume
         digitalWrite(LED_err_1, HIGH);
+}
+
+int Bomb::getError(){
+    return Error;
 }

@@ -29,18 +29,19 @@ void Application::init(void)
 }
 
 void Application::updateTimerFromISR() {
+  Timer_-=1;
   Timer_.update();
 }
 
-ISR(TIMER1_OVF_vect) {
-  if (Application::instance != nullptr) {
-    Application::instance->updateTimerFromISR();
-  }
+ISR(TIMER1_COMPA_vect) {
+  if (Application::bombe.getError()==2)
+    if (Application::instance != nullptr) {
+      Application::instance->updateTimerFromISR();
+    }
 }
 
 void Application::run(void)
 {
   bombe.Verify();
-  //ThreadModule.stateThread();
-    ;
+  ThreadModule.stateThread();
 }
