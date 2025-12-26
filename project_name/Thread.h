@@ -3,14 +3,14 @@
 
 #include <Arduino.h>
 
+#include "ModuleBase.hpp"
 
-class Thread {
 
+class Thread : public ModuleBase {
   public: 
-    Thread(); 
+    Thread(Bomb *bomb);
     void initPin();
-    void stateThread(); // si le fil coupé est le bon
-    ~Thread();
+    void stateThread(Bomb *bomb); // si le fil coupé est le bon
   };
 
 #endif

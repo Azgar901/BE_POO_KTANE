@@ -14,11 +14,13 @@ class Bomb {
     char Port;
     int Timer;
     int Error=0;
-
+    friend class Timer;
     public:
     int Update=0;
 
     Bomb();
+
+    void AddTimer();
 
     void AddError();
 
@@ -28,6 +30,9 @@ class Bomb {
 
     void Print_Error(int err);
 
+    int getError();
+
+    int getTimer();
 };
 
 #endif //BE_POO_KTANE_BOMBE_HPP

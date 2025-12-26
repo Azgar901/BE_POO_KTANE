@@ -6,6 +6,9 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 #include "Bombe.hpp"
+#include "Thread.h"
+#include "Timer.hpp"
+
 /**
   * @class Application
   * @brief Classe Application 
@@ -13,8 +16,14 @@
 class Application
 {
   public :
+    Bomb bombe;  // DOIT être déclaré en premier car utilisé par les autres classes/objets
+    
+  private:
+    Thread ThreadModule;
+    Timer Timer_;
 
-    Bomb bombe;
+
+  public :
     /**
      * @fn Application();
      * @brief Constructeur par defaut

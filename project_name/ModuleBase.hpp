@@ -8,7 +8,8 @@
 class Bomb;
 
 class ModuleBase {
-    int led;
+    protected:
+    int led=0;
     Bomb * bombp; // Pointeur vers la bombe
     public:
 
@@ -16,6 +17,6 @@ class ModuleBase {
 
     void Made_Error();
 
-    ~ModuleBase(); // Destructeur de base
+    
 };
 #endif //BE_POO_KTANE_MODULEBASE_HPP

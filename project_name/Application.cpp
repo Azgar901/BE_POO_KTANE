@@ -7,34 +7,26 @@
 #include "Bombe.hpp"
 #include <Arduino.h>
 #include <TM1637Display.h>
+#include "Thread.h"
+#include "Timer.hpp"
 
-
-
-Application::Application()
+Application::Application() : bombe(), ThreadModule(&bombe), Timer_(&bombe)
 {
-  // Code
-  ; 
 }
   
 Application::~Application()
 {
-  // Code
-  ;
 }  
 
 void Application::init(void)
 {
-  bombe = Bomb();
-    ;
+  ThreadModule.initPin();
+  Timer_.begin();  // Affiche le temps de départ
 }
-
 
 void Application::run(void)
 {
+  Timer_.update(&bombe);  // S'occupe du temps du timer avec la fonction milis()
   bombe.Verify();
-  delay(5000);
-
-
-  bombe.Update=1;
-    ;
+  ThreadModule.stateThread(&bombe);
 }
