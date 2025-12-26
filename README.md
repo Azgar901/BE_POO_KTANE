@@ -13,11 +13,13 @@ Les modules de la bombe seront constitués d'un module de base servant à tous p
 Ce module vise à définir la gestion du temps et des erreurs.
 
 Il utilise les pins 22 et 24 pour les LEDs des erreurs et les pins 2 et  3 ( Digital PWM ) pour l'affichage ( Timer et Erreur ).
-Les modules appellent la fonction AddError() pour ajouter une erreur sur la bombe. Pour l'instant il n'y a pas de son d'explosion et le timer peut passer en négatif.
+Les modules appellent la fonction AddError() pour ajouter une erreur sur la bombe. Pour l'instant il n'y a pas de son d'explosion.
 
-Le Timer se mets à jour par interruption du Timer 1 de l'Arduino ce qui permet de ne pas scruter le temps et de pouvoir faire des tâches en parallèle.
+Le Timer se mets à jour avec l'aide de la fonction millis() pour avoir de la précision.
 
 Les erreurs sont gérées dans la classe Bomb, où a chaque boucle on vérifie s'il y a eu une update, à ce moment, on allume une LED supplémentaire selon le nombre d'erreurs précédentes et on affiche Err 1 ou Err 2 pendant 1s.
+Au bout de 3 erreurs la bombe se déclenche et affiche "LOSE" ( sauf pour les fils où la bombe marque "LOSE" si le fil coupé n'est pas bon )
+
 # Premier Module
 Voici le module "Thread":
 
@@ -25,3 +27,4 @@ Il s'agit de la première configuration (de 5 fils) dont le vrai fil à couper e
 Pour cela, j'ai fais une classe "Thread" qui aura principalement une fonction permettant de configurer en mode Input les 5 pins (31, 33, 35, 37 et 39) que l'on utilisera pour les fils et une fonction qui permettra de détecter, en fonction de l'état des ports d'entrée de la carte (si une des pins n'est plus alimentée) permettra de savoir si un fil est déconnecté de la pin.
 Si le fil coupé n'est pas la pin 31, la bombe se déclenche.
 
+La LED de validation est situé sur la pin 26.
