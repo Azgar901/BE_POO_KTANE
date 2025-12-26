@@ -44,23 +44,3 @@ void Timer::update(Bomb * b) {
         }
     }
 }
-
-Timer Timer::operator-( int a) {
-    MaxTime -= a;
-    return *this;
-}
-
-Timer Timer::operator--() {
-    MaxTime--;
-    return *this;
-}
-
-Timer Timer::operator+( int a) {
-    MaxTime += a;
-    return *this;
-}
-
-Timer Timer::operator++() {
-    MaxTime++;
-    return *this;
-}
