@@ -16,40 +16,32 @@ extern TM1637Display display;
 
 
 Timer::Timer(Bomb * b) {
-    MaxTime = b->Timer;
-
+    MaxTime = b->getTimer();
     display.setBrightness(0x0f);
-    //Programmation de l'interruption toutes les 1s en mode CC
-    noInterrupts();
-    TCCR1A = 0;           // Reset registre A
-    TCCR1B = 0;           // Reset registre B
-    TCNT1 = 0;            // Reset compteur
-    
-    OCR1A = 15624; // OCR1A = (16MHz / (prescaler * frequence)) - 1
-    
-    TCCR1B |= (1 << WGM12);   // Mode CC
-    TCCR1B |= (1 << CS12) | (1 << CS10);  // Prescaler = 1024
-    TIMSK1 |= (1 << OCIE1A);  // Active l'interruption sur CC A
-    interrupts();
 }
 
 void Timer::begin() {
-    int seconde;
-    int minute;
-    seconde = MaxTime%60;
-    minute = MaxTime/60;
+    lastUpdate = millis();  // Initialise le temps de référence
+    int seconde = MaxTime % 60;
+    int minute = MaxTime / 60;
+    int displayTime = minute * 100 + seconde;  // Format MMSS (ex: 5:30 -> 530)
     display.clear();
-    display.showNumberDecEx(seconde, (0x80 >> 1), false);
-    display.showNumberDecEx(minute, (0x80 >> 1), false, 2);
+    display.showNumberDecEx(displayTime, 0x40, false);  // Affiche le temps de départ au format M:SS
 }
 
-void Timer::update() {
-    if (MaxTime >= 0) {
-        int seconde = MaxTime % 60;
-        int minute = MaxTime / 60;
-        display.clear();
-        display.showNumberDecEx(seconde, (0x80 >> 1), false);
-        display.showNumberDecEx(minute, (0x80 >> 1), false, 2);
+void Timer::update(Bomb * b) {
+    if ( b->getError()<2) {
+        unsigned long now = millis();
+        if (now - lastUpdate >= 1000) {  // 1 seconde écoulée
+            lastUpdate = now;
+            if (MaxTime > 0) {
+                MaxTime--;
+                int seconde = MaxTime % 60;
+                int minute = MaxTime / 60;
+                int displayTime = minute * 100 + seconde;
+                display.showNumberDecEx(displayTime, 0x40, false);  // Affiche le temps restant au format M:SS
+            }
+        }
     }
 }
 

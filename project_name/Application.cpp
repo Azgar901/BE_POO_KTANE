@@ -10,39 +10,23 @@
 #include "Thread.h"
 #include "Timer.hpp"
 
-Application* Application::instance = nullptr;
-
 Application::Application() : bombe(), ThreadModule(&bombe), Timer_(&bombe)
 {
-      instance = this;
 }
   
 Application::~Application()
 {
-  instance=nullptr;
 }  
 
 void Application::init(void)
 {
-  ThreadModule.initPin()
-    ;
-}
-
-void Application::updateTimerFromISR() {
-  Timer_--;
-  Timer_.update();
-}
-
-ISR(TIMER1_COMPA_vect) {
-  if (Application::instance != nullptr) {
-    if (Application::instance->bombe.getError() == 2) {
-      Application::instance->updateTimerFromISR();
-    }
-  }
+  ThreadModule.initPin();
+  Timer_.begin();  // Affiche le temps de départ
 }
 
 void Application::run(void)
 {
+  Timer_.update(&bombe);  // S'occupe du temps du timer avec la fonction milis()
   bombe.Verify();
-  ThreadModule.stateThread();
+  ThreadModule.stateThread(&bombe);
 }

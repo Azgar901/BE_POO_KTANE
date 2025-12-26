@@ -16,6 +16,8 @@
 #define LED_err_2 24 // Port Digit 24
 //////////////////////////
 
+extern TM1637Display display;  // Défini dans project_name.ino
+
 Bomb::Bomb(){
     SerialNumber=1234;
     Port = 'a';
@@ -28,47 +30,48 @@ Bomb::Bomb(){
     pinMode(LED_err_2, OUTPUT);
 }
 
-extern TM1637Display display(CLK, DIO);
-
 void Bomb::AddError(){
     Error++;
-    Update=1;
+    Update++;
 }
 
 void Bomb::Verify() {
-    if ( Update == 1) {
-        Update = 0;
+    if ( Update == 1 || Update == 2) {
         Print_Error( Error); // On affiche Err 1 ou Err 2
         Allume_LED_Error();
-        if ( Error == 2 ){
-            delay(500);
-            display.clear();
+        if ( Error >1){
+            const uint8_t LOSE[] = {
+                SEG_D | SEG_E | SEG_F ,                          // L
+                SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F,   // O
+                SEG_A | SEG_D | SEG_F | SEG_G | SEG_C,           // S
+                SEG_A | SEG_D | SEG_E | SEG_F | SEG_G            // E
+                };
+
+            display.setSegments(LOSE);
         }
+        Update--;
     }
 }
 
 
 void Bomb::Print_Error(int e) {
-    display.clear();
 
-    if (e==1){
+    if (e==1 || Update == 2){
         const uint8_t SEG_Err[] = {
             SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
             SEG_E | SEG_G,                                   // r
             SEG_E | SEG_G,                                   // r
             SEG_C | SEG_B                                    // 1
         };
-        display.setBrightness(0x0f);
         display.setSegments(SEG_Err);
     }
-    if (e==2){
+    if (e==2 && Update==1){
         const uint8_t SEG_Err[] = {
              SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
              SEG_E | SEG_G,                                   // r
              SEG_E | SEG_G,                                   // r
              SEG_A | SEG_B | SEG_D | SEG_E | SEG_G            // 2
 	    };
-        display.setBrightness(0x0f);
         display.setSegments(SEG_Err);
     }
     
@@ -83,4 +86,8 @@ void Bomb::Allume_LED_Error(){
 
 int Bomb::getError(){
     return Error;
+}
+
+int Bomb::getTimer(){
+    return Timer;
 }
