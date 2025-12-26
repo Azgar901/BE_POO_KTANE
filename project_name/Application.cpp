@@ -29,15 +29,16 @@ void Application::init(void)
 }
 
 void Application::updateTimerFromISR() {
-  Timer_-=1;
+  Timer_--;
   Timer_.update();
 }
 
 ISR(TIMER1_COMPA_vect) {
-  if (Application::bombe.getError()==2)
-    if (Application::instance != nullptr) {
+  if (Application::instance != nullptr) {
+    if (Application::instance->bombe.getError() == 2) {
       Application::instance->updateTimerFromISR();
     }
+  }
 }
 
 void Application::run(void)

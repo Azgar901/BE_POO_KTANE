@@ -14,6 +14,12 @@ class Timer {
 
     void begin();
     void update();
+
+    Timer operator-( int a);
+    Timer operator--();
+    Timer operator+( int a);
+    Timer operator++();
+
 };
 
 #endif //BE_POO_KTANE_TIMER_HPP

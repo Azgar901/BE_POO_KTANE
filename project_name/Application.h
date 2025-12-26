@@ -15,11 +15,12 @@
 */    
 class Application
 {
-    Bomb bombe;
+    
     Thread ThreadModule;
     Timer Timer_;
 
   public :
+    Bomb bombe;
     /**
      * @fn Application();
      * @brief Constructeur par defaut
