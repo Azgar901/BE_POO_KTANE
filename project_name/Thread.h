@@ -7,11 +7,10 @@
 
 
 class Thread : public ModuleBase {
-  int CuttedThread=0;
   public: 
     Thread(Bomb *bomb);
     void initPin();
-    void stateThread(); // si le fil coupé est le bon
+    void stateThread(Bomb *bomb); // si le fil coupé est le bon
   };
 
 #endif

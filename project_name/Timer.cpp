@@ -14,46 +14,53 @@
 
 extern TM1637Display display;
 
-volatile int interrupt_counter = 0;
 
 Timer::Timer(Bomb * b) {
-    MaxTime = b->Timer;
-
+    MaxTime = b->getTimer();
     display.setBrightness(0x0f);
-    //Programmation de l'interruption toutes les 30ms
-    noInterrupts();
-    TCCR1A=0; // On active TIM 1
-    TCCR1B=0;
-    TCCR1B |= 0b00000101; // prescaler = 1024
-    TIMSK1 |= 0b00000001; // on active l'interruption en overflow
-    interrupts();
 }
 
 void Timer::begin() {
-    int seconde;
-    int minute;
-    seconde = MaxTime%60;
-    minute = MaxTime/60;
+    lastUpdate = millis();  // Initialise le temps de référence
+    int seconde = MaxTime % 60;
+    int minute = MaxTime / 60;
+    int displayTime = minute * 100 + seconde;  // Format MMSS (ex: 5:30 -> 530)
     display.clear();
-    display.showNumberDecEx(seconde, (0x80 >> 1), false);
-    display.showNumberDecEx(minute, (0x80 >> 1), false, 2);
-    MaxTime--;
+    display.showNumberDecEx(displayTime, 0x40, false);  // Affiche le temps de départ au format M:SS
 }
 
-void Timer::update() {
-    interrupt_counter++;
-    if (interrupt_counter > 460){
-        interrupt_counter = 0;
-        MaxTime--;
-        if (MaxTime >=0){
-            int seconde;
-            int minute;
-            seconde = MaxTime%60;
-            minute = MaxTime/60;
-            display.clear();
-            display.showNumberDecEx(seconde, (0x80 >> 1), false);
-            display.showNumberDecEx(minute, (0x80 >> 1), false, 2);
-
+void Timer::update(Bomb * b) {
+    if ( b->getError()<2) {
+        unsigned long now = millis();
+        if (now - lastUpdate >= 1000) {  // 1 seconde écoulée
+            lastUpdate = now;
+            if (MaxTime > 0) {
+                MaxTime--;
+                int seconde = MaxTime % 60;
+                int minute = MaxTime / 60;
+                int displayTime = minute * 100 + seconde;
+                display.showNumberDecEx(displayTime, 0x40, false);  // Affiche le temps restant au format M:SS
             }
+        }
     }
+}
+
+Timer Timer::operator-( int a) {
+    MaxTime -= a;
+    return *this;
+}
+
+Timer Timer::operator--() {
+    MaxTime--;
+    return *this;
+}
+
+Timer Timer::operator+( int a) {
+    MaxTime += a;
+    return *this;
+}
+
+Timer Timer::operator++() {
+    MaxTime++;
+    return *this;
 }

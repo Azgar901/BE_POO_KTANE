@@ -9,7 +9,7 @@ class Bomb;
 
 class ModuleBase {
     protected:
-    int led;
+    int led=0;
     Bomb * bombp; // Pointeur vers la bombe
     public:
 

@@ -30,6 +30,9 @@ class Bomb {
 
     void Print_Error(int err);
 
+    int getError();
+
+    int getTimer();
 };
 
 #endif //BE_POO_KTANE_BOMBE_HPP

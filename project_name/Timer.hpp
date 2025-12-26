@@ -8,12 +8,19 @@
 
 class Timer {
     int MaxTime;
+    unsigned long lastUpdate;
 
     public:
     Timer(Bomb * b);
 
     void begin();
-    void update();
+    void update(Bomb * b);
+
+    Timer operator-( int a);
+    Timer operator--();
+    Timer operator+( int a);
+    Timer operator++();
+
 };
 
 #endif //BE_POO_KTANE_TIMER_HPP

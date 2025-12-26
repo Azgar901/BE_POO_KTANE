@@ -15,9 +15,13 @@
 */    
 class Application
 {
-    Bomb bombe;
+  public :
+    Bomb bombe;  // DOIT être déclaré en premier car utilisé par les autres classes/objets
+    
+  private:
     Thread ThreadModule;
     Timer Timer_;
+
 
   public :
     /**
@@ -40,9 +44,5 @@ class Application
      * @brief Fonction de lancement de l'application
     */
     void run(void);
-
-    void updateTimerFromISR(void);
-
-    static Application* instance;
 };
 #endif
