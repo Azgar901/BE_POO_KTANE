@@ -10,7 +10,7 @@ class Thread : public ModuleBase {
   public: 
     Thread(Bomb *bomb);
     void initPin();
-    void stateThread(Bomb *bomb); // si le fil coupé est le bon
+    void stateThread(); // regarde si on a coupé un fil et vérifie, allume la LED et fais exploser la bombe
   };
 
 #endif

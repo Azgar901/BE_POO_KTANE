@@ -10,7 +10,7 @@
 #include "Thread.h"
 #include "Timer.hpp"
 
-Application::Application() : bombe(), ThreadModule(&bombe), Timer_(&bombe)
+Application::Application() : ThreadModule(&bombe), Timer_(&bombe)
 {
 }
   
@@ -28,5 +28,5 @@ void Application::run(void)
 {
   Timer_.update(&bombe);  // S'occupe du temps du timer avec la fonction milis()
   bombe.Verify();
-  ThreadModule.stateThread(&bombe);
+  ThreadModule.stateThread();
 }
