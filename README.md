@@ -28,3 +28,10 @@ Pour cela, j'ai fais une classe "Thread" qui aura principalement une fonction pe
 Si le fil coupé n'est pas la pin 31, la bombe se déclenche.
 
 La LED de validation est situé sur la pin 26.
+
+# Deuxième Module
+Mudule "Simon":
+Pins utilisés-> - 41, 43, 45, 47 pour les boutons poussoir
+                - 40 (rouge), 42 (bleu), 44 (jaune), 46 (vert) pour les 4 LEDs du module
+                - 48 pour la LED de validation
+Le module se comporte de 3 façons différentes en fonction du nombre d'erreurs faits. A chaque erreur (2 maximum) il y a une fin différente. Cependant, si les 3 fautes sont atteintes, la bombe se déclenche.
