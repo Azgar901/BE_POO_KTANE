@@ -17,4 +17,6 @@ add_executable(BE_POO_KTANE
         project_name/Thread.cpp
         project_name/Timer.cpp
         project_name/Timer.hpp
+        project_name/Simon.h
+        project_name/Simon.cpp
 )

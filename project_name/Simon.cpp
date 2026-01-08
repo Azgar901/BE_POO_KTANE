@@ -1,188 +1,165 @@
 #include "Simon.h"
 #include <Arduino.h>
 #include "Bombe.hpp" //recup la fonction ajout d'erreur 
+#include"ModuleBase.hpp"
 
-extern Bomb b;
 
-Simon:: Simon(){
+
+Simon:: Simon(Bomb *b) : ModuleBase(b){
 
 } //constructeur
 
-void Simon::config_pin(){
+void Simon::Simon_config_pin(){
+  previousMillis = millis();
   for (int i = 40; i < 49; i++) {
     if (i%2==0)
-      pinMode(i, INPUT); // config LEDs
+      pinMode(i, OUTPUT); // config LEDs
     else
-      pinMode(i, OUTPUT); // config bouton boussoir
+      pinMode(i, INPUT_PULLUP); // config bouton boussoir
   }
 }
 
-  /*void Simon:: Led_on(int pin_Led, int pin_PushButton){
-   if (digitalRead(pin_PushButton)==1){
-    if (digitalRead(pin_Led)==0)
-      digitalWrite(pin_Led, HIGH);
-   }
-   }*/
-
-   void Simon:: Led_ON(){
-    
-      if (digitalRead(41)==1)
-        digitalWrite(40, HIGH); // LED Rouge
-      else if (digitalRead(43)==1)
-        digitalWrite(42, HIGH); // LED Bleu
-      else if (digitalRead(45)==1)
-        digitalWrite(44, HIGH); // LED Jaune
-      else if (digitalRead(47)==1)
-        digitalWrite(46, HIGH); // LED Vert
-   }
-  void Simon:: to_flash(int flash){
-      delay(1000);
-      digitalWrite(flash, HIGH);
-      delay(1000);
-      digitalWrite(flash, LOW);
-    }
-
-
-  void Simon::Error1(int err){
-    int pin_flash=40; // rouge
-    int error=err;
-    while (error==1) {
-      to_flash(pin_flash);
-      Led_ON();
-      if ( (digitalRead(44)==HIGH) and pin_flash==40 ){ // condition si le rouge clignote 
-        pin_flash=42;
-        to_flash(pin_flash);
-        if ( (digitalRead(46)==HIGH) and pin_flash==42 ){ // condition si le bleu clignote 
-            pin_flash=46;
-            to_flash(pin_flash);
-    
-            if ( (digitalRead(42)==HIGH) and pin_flash==46 ){ // condition si le vert clignote 
-              pin_flash=44;
-              to_flash(pin_flash);
-          
-              if ( (digitalRead(40)==HIGH) and pin_flash==44 ) // condition si le jaune clignote 
-                digitalWrite(48,HIGH); //Mission réussie
-              else{
-                error+=1;
-                b.AddError();
-                digitalWrite(42,LOW);
-                digitalWrite(46,LOW);
-                digitalWrite(44,LOW);
-              }
-            }
-            else{
-              error+=1;
-              b.AddError();
-              digitalWrite(44,LOW);
-              digitalWrite(46,LOW);
-              digitalWrite(40,LOW);
-            }
-          } 
-          else{
-          error+=1;
-          b.AddError();
-          digitalWrite(42,LOW);
-          digitalWrite(44,LOW);
-          digitalWrite(40,LOW);
-          }
-        }  
-        else{
-          error+=1;
-          b.AddError();
-          digitalWrite(42,LOW);
-          digitalWrite(46,LOW);
-          digitalWrite(40,LOW);
-        }
-    } 
+void Simon:: LED_ON(char led){
+  if(led=='R'){
+    digitalWrite(40,HIGH);
   }
-
-void Simon::Error2(int err){
-    int pin_flash=40; // rouge
-    while (err==2) {
-      to_flash(pin_flash);
-      Led_ON();
-      if ( (digitalRead(46)==HIGH) and pin_flash==40 ){ // condition si le rouge clignote 
-        pin_flash=42;
-        to_flash(pin_flash);
-      
-        if ( (digitalRead(40)==HIGH) and pin_flash==42 ){ // condition si le bleu clignote 
-            pin_flash=46;
-            to_flash(pin_flash);
-    
-            if ( (digitalRead(44)==HIGH) and pin_flash==46 ){ // condition si le vert clignote 
-              pin_flash=44;
-              to_flash(pin_flash);
-          
-              if ( (digitalRead(42)==HIGH) and pin_flash==44 ) // condition si le jaune clignote 
-                digitalWrite(48,HIGH); //Mission réussie
-              else{
-                b.AddError();
-        }
-            }
-            else
-              b.AddError();
-          }
-          else
-            b.AddError();
-        }
-        else
-          b.AddError();     
-    }
+  else if(led=='B'){
+    digitalWrite(42,HIGH);
+  }
+  else if(led=='J'){
+    digitalWrite(44,HIGH);
+  }
+  else if(led=='V'){
+    digitalWrite(46,HIGH);
+  }
 }
 
-  void Simon::Test_error(int err){
-    if (err==1)
-      Error1(err);
-      
-    else
-      if(err==2)
-        Error2(err);
+void Simon:: LED_OFF(char led){
+  if(led=='R'){
+    digitalWrite(40,LOW);
+  }
+  else if(led=='B'){
+    digitalWrite(42,LOW);
+  }
+  else if(led=='J'){
+    digitalWrite(44,LOW);
+  }
+  else if(led=='V'){
+    digitalWrite(46,LOW);
+  }
+}
+
+void Simon::Reset(){
+   bombp->AddError();
+   int ButtonB=LOW; 
+    int ButtonR=LOW; 
+    int ButtonJ=LOW; 
+    int ButtonV=LOW; 
+    int BB_OK=LOW; 
+    int BR_OK=LOW; 
+    int BJ_OK=LOW; 
+    int BV_OK=LOW; 
+    unsigned long previousMillis_R=millis();
+    unsigned long previousMillis_B=millis();
+    unsigned long previousMillis_J=millis();
+    unsigned long previousMillis_V=millis();
+    unsigned long currentMillis_R=millis();
+    unsigned long currentMillis_B=millis();
+    unsigned long currentMillis_J=millis();
+    unsigned long currentMillis_V=millis();
+    unsigned long currentMillis=millis();
+}
+
+void Simon::FlashLed0() {
+  // ici on flash une fois un boutton appuyé
+  if(BB_temp){ // On appuie d'abord le Bleu
+    currentMillis_B=millis();
+    if((currentMillis_B - previousMillis_B)>=100){
+      previousMillis_B=currentMillis_B;
+      LED_OFF('R');
+      if(stage==0){
+        stage++;
+        nb_Leds+=1;
+        BB_temp=0;
+        Reset();
+      }
+    }
+    else{
+      LED_ON('R');
+    }
+  }
+  else if(BR_temp){ //on appuie sur le bleu
+    currentMillis_R=millis();
+    if((currentMillis_R - previousMillis_R)>=100){
+      previousMillis_R=currentMillis_R;
+      LED_OFF('B');
+      if(stage==1){
+        stage++;
+        nb_Leds=stage+1;
+        BR_temp=0;
+      }
+    }
+    else{
+      LED_ON('B');
+    }
+  }
+  else if(BJ_temp){ //on appuie sur le rouge
+    currentMillis_J=millis();
+    if((currentMillis_J - previousMillis_J)>=100){
+      previousMillis_J=currentMillis_J;
+      LED_OFF('V');
+      if(stage==2){
+        stage++;
+        nb_Leds=stage+1;
+        BJ_temp=0;
+      }
+    }
+    else{
+      LED_ON('V');
+    }
   }
 
-  void Simon:: Is_OK(){
-    
-    int pin_flash=40; // rouge
-    int error=0;
-    while(error<3){
-      to_flash(pin_flash);
-      Led_ON();
-      if ( (digitalRead(42)==HIGH) and pin_flash==40 ){ // condition si le rouge clignote 
-        pin_flash=42;
-        to_flash(pin_flash);
-        if ( (digitalRead(40)==HIGH) and pin_flash==42 ){ // condition si le bleu clignote 
-            pin_flash=46;
-            to_flash(pin_flash);
-    
-            if ( (digitalRead(44)==HIGH) and pin_flash==46 ){ // condition si le vert clignote 
-              pin_flash=44;
-              to_flash(pin_flash);
-          
-              if ( (digitalRead(46)==HIGH) and pin_flash==44 ) // condition si le jaune clignote 
-                digitalWrite(48,HIGH); //Mission réussie
-              else{
-                error+=1;
-                Test_error(error);
-              }  
-            }
-            else{
-                error+=1;
-                Test_error(error);
-              }
-          }
-          else{
-                error+=1;
-                Test_error(error);
-              }
-        }
-        else{
-                error+=1;
-                Test_error(error);
-              }
-     }
+  else if(BV_temp){ //on appuie sur le rouge
+    currentMillis_R=millis();
+    if((currentMillis_V - previousMillis_V)>=100){
+      previousMillis_V=currentMillis_V;
+      LED_OFF('J');
+      if(stage==3){
+        stage++;
+        nb_Leds=stage+1;
+        BV_temp=0;
+      }
+    }
+    else{
+      LED_ON('J');
+    }
   }
+  // Si aucun boutton n'est appuyé
+  else{
+    if (interval==4000){
+      LED_ON(Tab_Stage[stage][stage-(nb_Leds-1)]);
+      interval=100;
+      Prev_Led=Tab_Stage[stage][stage-(nb_Leds-1)];
+      if((stage-(nb_Leds-1))>0){
+        Next_Led=Tab_Stage[stage][stage-(nb_Leds-1)+1];
+      }
+    }
+    else if(interval==100){
+      LED_OFF(Prev_Led);
+      nb_Leds--;
+      if(nb_Leds>0)
+        interval=500;
+      else
+        interval=4000;
+    }
+    else if(interval==500){
+      LED_ON(Next_Led);
+      interval=100;
+      Prev_Led=Next_Led;
+      if((stage-(nb_Leds-1))>0){
+        Next_Led=Tab_Stage[stage][stage-(nb_Leds-1)+1];
+      }
 
- 
-  
-    Simon:: ~Simon(){
-
-    } // destructeur
+    }
+  }
+}
