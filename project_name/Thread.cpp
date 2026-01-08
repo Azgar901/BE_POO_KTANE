@@ -16,7 +16,7 @@ void Thread::initPin() {
 
 
 void Thread:: stateThread(Bomb *bomb){
-  if (bomb->getError()<1){
+  if (bombp->getError()<1){
       int state;
       for (int i=31;i<40; i++){
         if (i%2==1){

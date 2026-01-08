@@ -1,5 +1,7 @@
 #include "Application.h"
 #include <TM1637Display.h>
+#include <Arduino.h>
+
 
 #define CLK 2
 #define DIO 3
@@ -11,7 +13,9 @@ void setup()
 {
   // put your setup code here, to run once:
   myApplication.init();
+  Serial.begin(9600);
 }
+
 
 
 
