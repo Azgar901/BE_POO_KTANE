@@ -5,6 +5,8 @@
 #include "Bombe.hpp"
 #include <Arduino.h>
 #include <TM1637Display.h>
+#include "Speaker.hpp"
+
 
 /////// Port Timer ////
 #define CLK 2 // Port PWM 2
