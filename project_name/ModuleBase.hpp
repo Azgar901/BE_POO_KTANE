@@ -17,6 +17,8 @@ class ModuleBase {
 
     void Made_Error();
 
+    int get_led();
+
     
 };
 #endif //BE_POO_KTANE_MODULEBASE_HPP

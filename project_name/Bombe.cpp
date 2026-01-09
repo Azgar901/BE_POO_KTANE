@@ -5,8 +5,6 @@
 #include "Bombe.hpp"
 #include <Arduino.h>
 #include <TM1637Display.h>
-#include "Speaker.hpp"
-
 
 /////// Port Timer ////
 #define CLK 2 // Port PWM 2
@@ -24,9 +22,9 @@ Bomb::Bomb(){
     SerialNumber=1234;
     Port = 'a';
     NumberOfBatteries = 4;
-    Timer=180;
+    Timer=300;
 
-    // Initialisation des broches d'erreurs
+    // initialize the LED pin as an output:
     
     pinMode(LED_err_1, OUTPUT);
     pinMode(LED_err_2, OUTPUT);
@@ -38,10 +36,10 @@ void Bomb::AddError(){
 }
 
 void Bomb::Verify() {
-    if ( Update == 1) {
+    if ( Update == 1 || Update == 2) {
         Print_Error( Error); // On affiche Err 1 ou Err 2
-        Allume_LED_Error();  // Allume les leds en fonction des erreurs
-        if ( Error >2){
+        Allume_LED_Error();
+        if ( Error >1){
             const uint8_t LOSE[] = {
                 SEG_D | SEG_E | SEG_F ,                          // L
                 SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F,   // O
@@ -49,7 +47,7 @@ void Bomb::Verify() {
                 SEG_A | SEG_D | SEG_E | SEG_F | SEG_G            // E
                 };
 
-            display.setSegments(LOSE);        // Affiche LOSE sur le chrono
+            display.setSegments(LOSE);
         }
         Update--;
     }
@@ -58,23 +56,23 @@ void Bomb::Verify() {
 
 void Bomb::Print_Error(int e) {
 
-    if (e==1){
+    if (e==1 || Update == 2){
         const uint8_t SEG_Err[] = {
             SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
             SEG_E | SEG_G,                                   // r
             SEG_E | SEG_G,                                   // r
             SEG_C | SEG_B                                    // 1
         };
-        display.setSegments(SEG_Err);               // Affiche Err1 sur le chrono
+        display.setSegments(SEG_Err);
     }
-    if (e==2){
+    if (e==2 && Update==1){
         const uint8_t SEG_Err[] = {
              SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
              SEG_E | SEG_G,                                   // r
              SEG_E | SEG_G,                                   // r
              SEG_A | SEG_B | SEG_D | SEG_E | SEG_G            // 2
 	    };
-        display.setSegments(SEG_Err);               // Affiche Err2 sur le chrono
+        display.setSegments(SEG_Err);
     }
     
 }

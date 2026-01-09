@@ -1,10 +1,11 @@
- //
+//
 // Created by ulric on 12/18/2025.
 //
 
 #ifndef BE_POO_KTANE_BOMBE_HPP
 #define BE_POO_KTANE_BOMBE_HPP
 #include "ModuleBase.hpp"
+
 
 class Bomb {
     protected:

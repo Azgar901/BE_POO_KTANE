@@ -7,6 +7,11 @@
 #include "TM1637Display.h"
 #include "Arduino.h"
 
+/////// Port Timer ////
+#define CLK 2 // Port PWM 2
+#define DIO 3 // Port PWM 3
+//////////////////////////
+
 extern TM1637Display display;
 
 
@@ -19,13 +24,13 @@ void Timer::begin() {
     lastUpdate = millis();  // Initialise le temps de référence
     int seconde = MaxTime % 60;
     int minute = MaxTime / 60;
-    int displayTime = minute * 100 + seconde;  // Format M:SS (ex: 5:30 -> 530)
+    int displayTime = minute * 100 + seconde;  // Format MMSS (ex: 5:30 -> 530)
     display.clear();
     display.showNumberDecEx(displayTime, 0x40, false);  // Affiche le temps de départ au format M:SS
 }
 
 void Timer::update(Bomb * b) {
-    if ( b->getError()<3) {
+    if ( b->getError()<2) {
         unsigned long now = millis();
         if (now - lastUpdate >= 1000) {  // 1 seconde écoulée
             lastUpdate = now;
@@ -38,4 +43,24 @@ void Timer::update(Bomb * b) {
             }
         }
     }
+}
+
+Timer Timer::operator-( int a) {
+    MaxTime -= a;
+    return *this;
+}
+
+Timer Timer::operator--() {
+    MaxTime--;
+    return *this;
+}
+
+Timer Timer::operator+( int a) {
+    MaxTime += a;
+    return *this;
+}
+
+Timer Timer::operator++() {
+    MaxTime++;
+    return *this;
 }
