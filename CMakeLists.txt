@@ -13,8 +13,10 @@ add_executable(BE_POO_KTANE
         project_name/ModuleBase.hpp
         project_name/Bombe.cpp
         project_name/Bombe.hpp
-        project_name/Arduino.h
         project_name/Thread.cpp
         project_name/Timer.cpp
         project_name/Timer.hpp
+        project_name/Speaker.cpp
+        project_name/Speaker.hpp
+        project_name/Simon.cpp
 )

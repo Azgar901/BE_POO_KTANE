@@ -25,6 +25,7 @@ void Thread:: stateThread(Bomb *bomb){
               if (i!=31){
                 bombp->AddError();
                 bombp->AddError();
+                bombp->AddError();
                 led=0;
                 digitalWrite(26, LOW);
               }
