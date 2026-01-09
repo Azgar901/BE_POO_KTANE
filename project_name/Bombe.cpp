@@ -36,10 +36,10 @@ void Bomb::AddError(){
 }
 
 void Bomb::Verify() {
-    if ( Update == 1 || Update == 2) {
+    if ( Update == 1 || Update == 2 || Update == 3) {
         Print_Error( Error); // On affiche Err 1 ou Err 2
         Allume_LED_Error();
-        if ( Error >1){
+        if ( Error >2){
             const uint8_t LOSE[] = {
                 SEG_D | SEG_E | SEG_F ,                          // L
                 SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F,   // O
@@ -56,7 +56,7 @@ void Bomb::Verify() {
 
 void Bomb::Print_Error(int e) {
 
-    if (e==1 || Update == 2){
+    if (e==1 || Update == 3){
         const uint8_t SEG_Err[] = {
             SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
             SEG_E | SEG_G,                                   // r
@@ -65,7 +65,7 @@ void Bomb::Print_Error(int e) {
         };
         display.setSegments(SEG_Err);
     }
-    if (e==2 && Update==1){
+    if (e==2 or Update==2){
         const uint8_t SEG_Err[] = {
              SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,           // E
              SEG_E | SEG_G,                                   // r

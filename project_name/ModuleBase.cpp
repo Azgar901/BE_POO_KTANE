@@ -12,3 +12,7 @@ ModuleBase::ModuleBase(Bomb * bomb) {
 void ModuleBase::Made_Error() {
     bombp->AddError();
 }
+
+int ModuleBase::get_led(){
+    return led;
+}
