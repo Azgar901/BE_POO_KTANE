@@ -6,20 +6,13 @@
 class Simon: public ModuleBase {
 
   public:
-    int ButtonB=LOW; //Bouton Bleu allumé ou pas
-    int ButtonR=LOW; //Bouton Bleu allumé ou pas
-    int ButtonJ=LOW; //Bouton Bleu allumé ou pas
-    int ButtonV=LOW; //Bouton Bleu allumé ou pas
-    int BB_OK=LOW; // Bouton Bleu appuyé
-    int BR_OK=LOW; // Bouton Bleu appuyé
-    int BJ_OK=LOW; // Bouton Bleu appuyé
-    int BV_OK=LOW; // Bouton Bleu appuyé
-    char Prev_Led;
-    char Next_Led;
-    int BB_temp=LOW; // Bouton Bleu appuyé
-    int BR_temp=LOW; // Bouton Bleu appuyé
-    int BJ_temp=LOW; // Bouton Bleu appuyé
-    int BV_temp=LOW; // Bouton Bleu appuyé
+    int Nb_Button=0;
+    char Prev_Led=NULL;
+    char Next_Led=NULL;
+    int BB_temp=LOW; // 1 si Bouton Bleu appuyé
+    int BR_temp=LOW; // 1 si Bouton Bleu appuyé
+    int BJ_temp=LOW; // 1 si Bouton Bleu appuyé
+    int BV_temp=LOW; // 1 si Bouton Bleu appuyé
     int stage=0;
     int nb_Leds=1;
     unsigned long previousMillis_R=millis();
@@ -46,17 +39,17 @@ class Simon: public ModuleBase {
     int pin_button[4]={41,43,45,47}; // pins des bouttons poussoir
 
     Simon(Bomb *b);
-    void Simon_config_pin();
+    void Simon_pin_config();
     void LED_ON(char led);
     void LED_OFF(char led);
     void Reset(); //reset toute la classe et ajoute l'erreur à la classe Bombe et
     void FlashLed0();
     void FlashLed1();
     void FlashLed2();
-    void Error0(Bomb *b); // verifie qu'on a bien suivi la bonne séquence
-    void Error1(int err, Bomb *b);
-    void Error2(int err, Bomb *b);
-    void Test_error(int err, Bomb *b);
+    void Error0(); // verifie qu'on a bien suivi la bonne séquence
+    void Error1();
+    void Error2();
+    void Simon_Check();
 
     ~Simon();
   };
