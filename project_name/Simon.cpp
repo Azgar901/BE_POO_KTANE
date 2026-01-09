@@ -25,6 +25,7 @@ void Simon::Simon_pin_config(){
 }
 
 void Simon:: LED_ON(char led){
+  
   if(led=='R'){
     digitalWrite(40,HIGH);
   }
@@ -40,6 +41,7 @@ void Simon:: LED_ON(char led){
 }
 
 void Simon:: LED_OFF(char led){
+  
   if(led=='R'){
     digitalWrite(40,LOW);
   }
@@ -73,7 +75,7 @@ void Simon::Reset(){
   BJ_temp=0;
   BV_temp=0;
 
-  nb_Leds=stage+1;
+  index_led=0;
   Nb_Button=0;
   Prev_Led=NULL;
   Next_Led=NULL;
@@ -87,14 +89,17 @@ void Simon::Error0() {
 void Simon::FlashLed0() {
   // ici on flash une fois un boutton appuyé
   if(BB_temp){
+    //Serial.println(BB_temp);
     currentMillis_B=millis();
     if((currentMillis_B - previousMillis_B)>=100) {
       LED_OFF('B');
       if (BB_temp == 1) {
-        if (Tab_Stage[stage][Nb_Button] =='B') {
-          if (Tab_Stage[stage][Nb_Button+1] ==' ') {
+        
+        if (Tab_Error0[stage][Nb_Button] =='B') {
+           
+          if (Tab_Error0[stage][Nb_Button+1] ==' ') {     
             stage++;
-            nb_Leds=stage+1;
+            index_led=0;
             Nb_Button=0;
           }
           else {
@@ -103,125 +108,140 @@ void Simon::FlashLed0() {
         }
         else {
           Reset();
+         
         }
-        BB_temp = 2;
+        BB_temp = 2; //anti rebond
       }
+      
     }
       else{
         LED_ON('B');
       }
-      if ( ButtonBstate == HIGH and BB_temp == 2)
+      if ( ButtonBstate == LOW and BB_temp == 2)
         BB_temp=0;
   }
-    if(BR_temp) {
-      currentMillis_R=millis();
-      if((currentMillis_R - previousMillis_R)>=100) {
-        LED_OFF('R');
-        if (BR_temp == 1) {
-          if (Tab_Stage[stage][Nb_Button] =='R'){
-            if (Tab_Stage[stage][Nb_Button+1] ==' ') {
-              stage++;
-              nb_Leds=stage+1;
-              Nb_Button=0;
-            }
-            else {
-              Nb_Button++;
-            }
-          }
-          else {
-            Reset();
-          }
-          BR_temp = 2;
-        }
-      }
-        else{
-          LED_ON('R');
-        }
-        if ( ButtonRstate == HIGH and BR_temp == 2)
-          BR_temp=0;
-    }
-    if(BJ_temp) {
-      currentMillis_J=millis();
-      if((currentMillis_J - previousMillis_J)>=100) {
-        LED_OFF('J');
-        if (BJ_temp == 1) {
-          if (Tab_Stage[stage][Nb_Button] =='J'){
-            if (Tab_Stage[stage][Nb_Button+1] ==' ') {
-              stage++;
-              nb_Leds=stage+1;
-              Nb_Button=0;
-            }
-            else {
-              Nb_Button++;
-            }
-          }
-          else {
-            Reset();
-          }
-          BJ_temp = 2;
-        }
-      }
-        else{
-          LED_ON('J');
-        }
-        if ( ButtonJstate == HIGH and BJ_temp == 2)
-          BJ_temp=0;
-    }
-    if(BV_temp) {
-      currentMillis_V=millis();
-      if((currentMillis_V - previousMillis_V)>=100) {
-        LED_OFF('V');
-        if (BV_temp == 1) {
-          if (Tab_Stage[stage][Nb_Button] =='V'){
-            if (Tab_Stage[stage][Nb_Button+1] ==' ') {
-              stage++;
-              nb_Leds=stage+1;
-              Nb_Button=0;
-            }
-            else {
-              Nb_Button++;
-            }
-          }
-          else {
-            Reset();
-          }
-          BV_temp = 2;
-        }
-      }
-        else{
-          LED_ON('V');
-        }
-        if ( ButtonVstate == HIGH and BV_temp == 2)
-          BV_temp=0;
-    }
+    // if(BR_temp) {
+    //   currentMillis_R=millis();
+    //   if((currentMillis_R - previousMillis_R)>=100) {
+    //     LED_OFF('R');
+    //     if (BR_temp == 1) {
+    //       if (Tab_Error0[stage][Nb_Button] =='R'){
+    //         if (Tab_Error0[stage][Nb_Button+1] ==' ') {
+    //           stage++;
+    //           nb_Leds=stage+1;
+    //           Nb_Button=0;
+    //         }
+    //         else {
+    //           Nb_Button++;
+    //         }
+    //       }
+    //       else {
+    //         Reset();
+    //       }
+    //       BR_temp = 2;
+    //     }
+    //   }
+    //     else{
+    //       LED_ON('R');
+    //     }
+    //     if ( ButtonRstate == LOW and BR_temp == 2)
+    //       BR_temp=0;
+    // }
+    // if(BJ_temp) {
+    //   currentMillis_J=millis();
+    //   if((currentMillis_J - previousMillis_J)>=100) {
+    //     LED_OFF('J');
+    //     if (BJ_temp == 1) {
+    //       if (Tab_Error0[stage][Nb_Button] =='J'){
+    //         if (Tab_Error0[stage][Nb_Button+1] ==' ') {
+    //           stage++;
+    //           nb_Leds=stage+1;
+    //           Nb_Button=0;
+    //         }
+    //         else {
+    //           Nb_Button++;
+    //         }
+    //       }
+    //       else {
+    //         Reset();
+    //       }
+    //       BJ_temp = 2;
+    //     }
+    //   }
+    //     else{
+    //       LED_ON('J');
+    //     }
+    //     if ( ButtonJstate == LOW and BJ_temp == 2)
+    //       BJ_temp=0;
+    // }
+    // if(BV_temp) {
+    //   currentMillis_V=millis();
+    //   if((currentMillis_V - previousMillis_V)>=100) {
+    //     LED_OFF('V');
+    //     if (BV_temp == 1) {
+    //       if (Tab_Error0[stage][Nb_Button] =='V'){
+    //         if (Tab_Error0[stage][Nb_Button+1] ==' ') {
+    //           stage++;
+    //           nb_Leds=stage+1;
+    //           Nb_Button=0;
+    //         }
+    //         else {
+    //           Nb_Button++;
+    //         }
+    //       }
+    //       else {
+    //         Reset();
+    //       }
+    //       BV_temp = 2;
+    //     }
+    //   }
+    //     else{
+    //       LED_ON('V');
+    //     }
+    //     if ( ButtonVstate == LOW and BV_temp == 2)
+    //       BV_temp=0;
+    // }
     // Si aucun boutton n'est appuyé
+       
     if(BB_temp==0 and BR_temp==0 and BV_temp==0 and BJ_temp==0){
+       
       currentMillis=millis();
+
+      
       if ( currentMillis-previousMillis>=interval){
         previousMillis=currentMillis;
-        if (interval==4000){
-          LED_ON(Tab_Stage[stage][stage-(nb_Leds-1)]);
+        if (interval==4000 or interval==3000){
+          LED_ON(Tab_Stage[stage][index_led]);
           interval=100;
-          Prev_Led=Tab_Stage[stage][stage-(nb_Leds-1)];
-          if((stage-(nb_Leds-1))>0){
-            Next_Led=Tab_Stage[stage][stage-(nb_Leds-1)+1];
+          Prev_Led=Tab_Stage[stage][index_led];
+          if((index_led+1)<=stage){
+            
+            Next_Led=Tab_Stage[stage][index_led+1];
           }
         }
         else if(interval==100){
           LED_OFF(Prev_Led);
-          nb_Leds--;
-          if(nb_Leds>0)
+          index_led++;
+          Serial.println(index_led);
+          if(index_led<=stage)
             interval=500;
           else
             interval=4000;
+            index_led=0;
+            
         }
         else if(interval==500){
+          //Serial.println(nb_Leds);
           LED_ON(Next_Led);
+          //Serial.println((const char*)Prev_Led);
           interval=100;
           Prev_Led=Next_Led;
-          if((stage-(nb_Leds-1))>0){
-            Next_Led=Tab_Stage[stage][stage-(nb_Leds-1)+1];
+          //Serial.println(stage-(nb_Leds-1));
+          
+          if((index_led+1)>0){
+            Next_Led=Tab_Stage[stage][index_led+1];
           }
+          
         }
       }
     }
@@ -230,7 +250,7 @@ void Simon::FlashLed0() {
 
 
   void Simon::Simon_Check() {
-    if ( ButtonRstate==LOW and BR_temp==LOW) {
+    if ( ButtonRstate==HIGH and BR_temp==LOW) {
       if ( BR_temp==LOW) {
         previousMillis_R=millis();
       }
@@ -238,15 +258,17 @@ void Simon::FlashLed0() {
       interval=3000;
       BR_temp=HIGH;
     }
-    else if ( ButtonBstate==LOW and BB_temp==LOW) {
+    if ( ButtonBstate==HIGH and BB_temp==LOW) {
+     
       if ( BB_temp==LOW) {
         previousMillis_B=millis();
       }
+      
       previousMillis=millis();
       interval=3000;
       BB_temp=HIGH;
     }
-    else if ( ButtonJstate==LOW and BJ_temp==LOW) {
+    if ( ButtonJstate==HIGH and BJ_temp==LOW) {
       if ( BJ_temp==LOW) {
         previousMillis_J=millis();
       }
@@ -254,7 +276,7 @@ void Simon::FlashLed0() {
       interval=3000;
       BJ_temp=HIGH;
     }
-    else if ( ButtonVstate==LOW and BV_temp==LOW) {
+    if ( ButtonVstate==HIGH and BV_temp==LOW) {
       if ( BV_temp==LOW) {
         previousMillis_V=millis();
       }
@@ -265,8 +287,12 @@ void Simon::FlashLed0() {
     int err = bombp->getError();
     if (err==0)
       FlashLed0();
-    else if (err==1)
-      FlashLed1();
-    else if (err==2)
-      FlashLed2();
+    // else if (err==1)
+    //   FlashLed1();
+    // else if (err==2)
+    //   FlashLed2();
+  }
+
+  Simon::~Simon(){
+
   }

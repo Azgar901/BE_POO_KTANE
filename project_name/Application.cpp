@@ -25,12 +25,13 @@ void Application::init(void)
   ThreadModule.initPin();
   Timer_.begin();  // Affiche le temps de départ
   SimonModule.Simon_pin_config();
+  Serial.begin(9600);
 }
 
 void Application::run(void)
 {
   Timer_.update(&bombe);  // S'occupe du temps du timer avec la fonction milis()
   bombe.Verify();
-  ThreadModule.stateThread(&bombe);
+//ThreadModule.stateThread(&bombe);
   SimonModule.Simon_Check();
 }

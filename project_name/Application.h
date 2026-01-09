@@ -8,7 +8,7 @@
 #include "Bombe.hpp"
 #include "Thread.h"
 #include "Timer.hpp"
-
+#include "Simon.h"
 /**
   * @class Application
   * @brief Classe Application 
@@ -21,6 +21,7 @@ class Application
   private:
     Thread ThreadModule;
     Timer Timer_;
+    Simon SimonModule;
 
 
   public :

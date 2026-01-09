@@ -28,6 +28,7 @@ class Simon: public ModuleBase {
     unsigned long currentMillis=millis();
 
     unsigned long interval=4000;
+    int index_led=0;
 
     char Tab_Stage[5][6] = {
         {'R',' ',' ',' ',' ',' '},
@@ -36,6 +37,16 @@ class Simon: public ModuleBase {
         {'R', 'B', 'V', 'J', ' '}, // Stage 3
         {'R', 'B', 'V', 'J', 'R'}  // Stage 4
     };
+
+    char Tab_Error0[5][6] = {
+        {'B',' ',' ',' ',' ',' '},
+        {'B', 'R', ' ', ' ', ' '}, // Stage 1
+        {'B', 'R', 'J', ' ', ' '}, // Stage 2
+        {'B', 'R', 'J', 'V', ' '}, // Stage 3
+        {'B', 'R', 'J', 'V', 'B'}  // Stage 4
+    };
+
+
     int pin_button[4]={41,43,45,47}; // pins des bouttons poussoir
 
     Simon(Bomb *b);
