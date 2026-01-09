@@ -19,4 +19,7 @@ add_executable(BE_POO_KTANE
         project_name/Speaker.cpp
         project_name/Speaker.hpp
         project_name/Simon.cpp
+        project_name/Simon.cpp
+        project_name/Password.hpp
+        project_name/Password.cpp
 )
