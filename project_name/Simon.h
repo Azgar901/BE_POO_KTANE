@@ -34,16 +34,32 @@ class Simon: public ModuleBase {
         {'R',' ',' ',' ',' ',' '},
         {'R', 'B', ' ', ' ', ' '}, // Stage 1
         {'R', 'B', 'V', ' ', ' '}, // Stage 2
-        {'R', 'B', 'V', 'J', ' '}, // Stage 3
-        {'R', 'B', 'V', 'J', 'R'}  // Stage 4
+        {'R', 'B', 'V', 'R', ' '}, // Stage 3
+        {'R', 'B', 'V', 'R', 'J'}  // Stage 4
     };
 
     char Tab_Error0[5][6] = {
         {'B',' ',' ',' ',' ',' '},
         {'B', 'R', ' ', ' ', ' '}, // Stage 1
         {'B', 'R', 'J', ' ', ' '}, // Stage 2
-        {'B', 'R', 'J', 'V', ' '}, // Stage 3
-        {'B', 'R', 'J', 'V', 'B'}  // Stage 4
+        {'B', 'R', 'J', 'B', ' '}, // Stage 3
+        {'B', 'R', 'J', 'B', 'V'}  // Stage 4
+    };
+
+    char Tab_Error1[5][6] = {
+        {'J',' ',' ',' ',' ',' '},
+        {'J', 'V', ' ', ' ', ' '}, // Stage 1
+        {'J', 'V', 'B', ' ', ' '}, // Stage 2
+        {'J', 'V', 'B', 'J', ' '}, // Stage 3
+        {'J', 'V', 'B', 'J', 'V'}  // Stage 4
+    };
+
+    char Tab_Error2[5][6] = {
+        {'V',' ',' ',' ',' ',' '},
+        {'V', 'R', ' ', ' ', ' '}, // Stage 1
+        {'V', 'R', 'J', ' ', ' '}, // Stage 2
+        {'V', 'R', 'J', 'B', ' '}, // Stage 3
+        {'V', 'R', 'J', 'B', 'R'}  // Stage 4
     };
 
 
@@ -53,13 +69,10 @@ class Simon: public ModuleBase {
     void Simon_pin_config();
     void LED_ON(char led);
     void LED_OFF(char led);
-    void Reset(); //reset toute la classe et ajoute l'erreur à la classe Bombe et
-    void FlashLed0();
-    void FlashLed1();
-    void FlashLed2();
-    void Error0(); // verifie qu'on a bien suivi la bonne séquence
-    void Error1();
-    void Error2();
+    void Reset(); // reset toute la classe et ajoute l'erreur à la classe Bombe et
+    void FlashLed0(); // Si aucune erreur cette fonction est appelé
+    void FlashLed1(); // Si deux erreurs
+    void FlashLed2(); // Si deux erreurs
     void Simon_Check();
 
     ~Simon();

@@ -23,7 +23,6 @@ class Application
     Timer Timer_;
     Simon SimonModule;
 
-
   public :
     /**
      * @fn Application();

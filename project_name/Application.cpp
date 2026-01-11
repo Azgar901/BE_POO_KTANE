@@ -32,6 +32,14 @@ void Application::run(void)
 {
   Timer_.update(&bombe);  // S'occupe du temps du timer avec la fonction milis()
   bombe.Verify();
-//ThreadModule.stateThread(&bombe);
-  SimonModule.Simon_Check();
+  if (ThreadModule.get_led()!=1)
+//  ThreadModule.stateThread(&bombe);
+  if ( SimonModule.get_led()!=1)
+    SimonModule.Simon_Check();
+  if ( (ThreadModule.get_led() + SimonModule.get_led())==4) {
+
+  }
+
 }
+
+
