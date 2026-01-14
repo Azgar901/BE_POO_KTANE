@@ -3,20 +3,24 @@ project(BE_POO_KTANE)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(project_name)
+include_directories(Project_KTANE)
 
 add_executable(BE_POO_KTANE
-        project_name/Application.cpp
-        project_name/Application.h
-        project_name/project_name.ino
-        project_name/ModuleBase.cpp
-        project_name/ModuleBase.hpp
-        project_name/Bombe.cpp
-        project_name/Bombe.hpp
-        project_name/Thread.cpp
-        project_name/Timer.cpp
-        project_name/Timer.hpp
-        project_name/Speaker.cpp
-        project_name/Speaker.hpp
-        project_name/Simon.cpp
+        Project_KTANE/Application.cpp
+        Project_KTANE/Application.h
+        Project_KTANE/Project_KTANE.ino
+        Project_KTANE/ModuleBase.cpp
+        Project_KTANE/ModuleBase.hpp
+        Project_KTANE/Bombe.cpp
+        Project_KTANE/Bombe.hpp
+        Project_KTANE/Thread.cpp
+        Project_KTANE/Timer.cpp
+        Project_KTANE/Timer.hpp
+        Project_KTANE/Speaker.cpp
+        Project_KTANE/Speaker.hpp
+        Project_KTANE/Simon.cpp
+        Project_KTANE/Simon.cpp
+        Project_KTANE/Password.hpp
+        Project_KTANE/Password.cpp
+        Project_KTANE/Simon.cpp
 )
