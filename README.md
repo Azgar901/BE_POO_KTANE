@@ -31,7 +31,7 @@ Chaque module sera un héritage de cette classe, elle ne contient que l'état de
 ### Premier Module
 Voici le module "Thread":
 
-Il s'agit de la première configuration (de 5 fils) dont le vrai fil à couper est le premier (fil jaune) s'il y a deux fils jaunes et un seul fil rouge.
+Il s'agit de la première configuration (de 5 fils) dont le vrai fil à couper est le fil bleu s'il y a deux fils jaunes et un seul fil rouge.
 Pour cela, j'ai fait une classe "Thread" qui aura principalement une fonction permettant de configurer en mode Input les 5 pins (9, 10, 11, 12 et 13) que l'on utilisera pour les fils et une fonction qui permettra de détecter, en fonction de l'état des ports d'entrée de la carte (si une des broches n'est plus alimentée) permettra de savoir si un fil est déconnecté de la broche.
 Si le fil coupé n'est pas situé sur la broche 13, la bombe se déclenche sinon la LED s'allume.
 
@@ -44,11 +44,13 @@ Module "Simon":
 Broches utilisées → - 41, 43, 45, 47 pour les boutons poussoir
                     - 40 (rouge), 42 (bleu), 44 (jaune), 46 (vert) pour les 4 LEDs du module
                     - 48 pour la LED de validation
-Le module se comporte de 3 façons différentes en fonction du nombre d'erreurs fait. 
-À chaque erreur (2 maximum) il y a une fin différente.
-Cependant, si les 3 fautes sont atteintes, la bombe se déclenche.
+Le but de ce module est d'apppuyer sur les boutons qui flashent dans un ordre qui est prédéfini dans notre programme (tableaux des erreurs). Nous avons choisi la configuration correspondant à un nnuméro de série qui contient au moins une voyelle dans le jeu originel.
+
+Le module se comporte de 3 façons différentes en fonction du nombre d'erreurs fait. Au début de la partie, ce sera toujours la LED rouge qui flashera toutes les 4 secondes. À chaque erreur (2 maximum) il y a un ordre de couleurs différentes. Nous avons défini l'ordre des couleurs dans des matrices différentes: Tab_Error0, Tab_Error1 et Tab_Error2. Si un joueur se trompe, il reprendra à partir de la couleur à laquelle il a échoué mais la suite ne sera pas la même que dans les autres cas.
+Au bout de 3 erreurs, la bombe se déclenche.
 
 ### Troisième Module
+
 Module "Password" :
 
 Utilisation des broches 6 pour la communication avec la télécommande et 7 pour la LED de validation.
@@ -87,6 +89,8 @@ mais cela créait des broches flottantes qui n'étaient pas détectées.
 
 Difficulté de compréhension, nous avons dû revoir tout notre code sur un tableau ( toute une après-midi ) pour être sûr de ce qu'on faisait et que nous soyons clairs sur la démarche du module.
 La gestion de clignotement des leds étaient aussi compliqués dans la logique de gestion ( selon si on appuie sur un bouton ou non ) faisant appel de nombreuses fois à la fonction millis.
+
+Sur le plan fonctionnel, nous avons voulu gérer les erreurs et le déclenchement de la bombe par exceptions. Cependant, nous nous sommes rendu compte qu'il nous était impossible de le faire car la carte que nous avons utilisé en plus pour notre projet (Arduino MEGA) ne contient pas le runtime d’exceptions AVR qui permet de linker avec try et catch. On a du donc abandonné l'idée.
 
 ### Pour le Password
 
