@@ -72,6 +72,10 @@ On peut contrôler l'emplacement de la lettre avec les touches fast forward et f
 
 ## Problèmes rencontrés
 
+### Pour la Bombe
+
+Sur le plan fonctionnel, nous avons voulu gérer les erreurs et le déclenchement de la bombe par exceptions. Cependant, nous nous sommes rendu compte qu'il nous était impossible de le faire car la carte que nous avons utilisé en plus pour notre projet (Arduino MEGA) ne contient pas le runtime d’exceptions AVR qui permet de linker avec try et catch. On a du donc abandonné l'idée.
+
 ### Pour le timer
 
 Compliqué à mettre en place, nous avions d'abord prévu de le faire par interruption, mais cela rendait le code très compliqué et il aurait fallu faire les autres fonctions par interruption. 
@@ -89,8 +93,6 @@ mais cela créait des broches flottantes qui n'étaient pas détectées.
 
 Difficulté de compréhension, nous avons dû revoir tout notre code sur un tableau ( toute une après-midi ) pour être sûr de ce qu'on faisait et que nous soyons clairs sur la démarche du module.
 La gestion de clignotement des leds étaient aussi compliqués dans la logique de gestion ( selon si on appuie sur un bouton ou non ) faisant appel de nombreuses fois à la fonction millis.
-
-Sur le plan fonctionnel, nous avons voulu gérer les erreurs et le déclenchement de la bombe par exceptions. Cependant, nous nous sommes rendu compte qu'il nous était impossible de le faire car la carte que nous avons utilisé en plus pour notre projet (Arduino MEGA) ne contient pas le runtime d’exceptions AVR qui permet de linker avec try et catch. On a du donc abandonné l'idée.
 
 ### Pour le Password
 
@@ -116,6 +118,7 @@ La conception nous a permis de nous faire continuer d'apprendre la modélisation
 Tous les fichiers STL et 3mf ( dont les erreurs )sont dans le dossier 3D File.
 
 Les boutons ont ensuite été soudé avec les câbles et nous avons torsadé les câbles autour des lEDS ( LED + résistance ).
+
 
 ## Difficultés rencontrées
 
