@@ -97,6 +97,7 @@ La gestion de clignotement des leds étaient aussi compliqués dans la logique d
 ### Pour le Password
 
 Difficulté de syntaxe, première utilisation du module IRreceiver ayant une syntaxe particulière puis affichage sur le LCD avec la carte ESP8266.
+Nous avons aussi voulu utilisé la STL dans le code pour avoir l'algorithme d'égalité de deux tableaux sauf que la MEGA ne supporte pas ArduinoSTL, nous avons donc décidé de ne pas l'utiliser.
 
 ### Pour la sortie audio
 
