@@ -31,7 +31,7 @@ Chaque module sera un héritage de cette classe, elle ne contient que l'état de
 ### Premier Module
 Voici le module "Thread":
 
-Il s'agit de la première configuration (de 5 fils) dont le vrai fil à couper est le fil bleu s'il y a deux fils jaunes et un seul fil rouge.
+Il s'agit de la première configuration (de 5 fils) dont le vrai fil à couper est le 4ième fil s'il y a deux fils jaunes et un seul fil rouge.
 Pour cela, j'ai fait une classe "Thread" qui aura principalement une fonction permettant de configurer en mode Input les 5 pins (9, 10, 11, 12 et 13) que l'on utilisera pour les fils et une fonction qui permettra de détecter, en fonction de l'état des ports d'entrée de la carte (si une des broches n'est plus alimentée) permettra de savoir si un fil est déconnecté de la broche.
 Si le fil coupé n'est pas situé sur la broche 13, la bombe se déclenche sinon la LED s'allume.
 
