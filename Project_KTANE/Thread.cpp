@@ -19,15 +19,15 @@ void Thread:: stateThread(){
       int state;
       for (int i=9;i<14; i++){
           state=digitalRead(i); 
-          if(state==HIGH){
-              if (i!=12){
+          if(state==HIGH){  // On regarde que si l'état du fil est coupé
+              if (i!=13){  // Si le 1er fil n'est pas celui coupé on fait exploser la bombe
                 bombp->AddError();
                 bombp->AddError();
                 bombp->AddError();
                 led=0;
                 digitalWrite(8, LOW);
               }
-              else{
+              else{         // Sinon on active la led de validation
                 if ( led !=1){
                   led=1;
                   digitalWrite(8, HIGH);
