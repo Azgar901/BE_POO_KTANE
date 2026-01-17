@@ -32,7 +32,7 @@ void Application::init(void)
   PasswordModule.init_Password();
   init_Speaker();
   Play_Music("welcome");
-  delay(8000);
+  //delay(8000);
   Timer_.begin();  // Affiche le temps de départ
   SimonModule.Simon_pin_config();
 }
