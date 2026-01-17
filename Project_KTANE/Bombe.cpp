@@ -20,7 +20,7 @@
 extern TM1637Display display;  // Défini dans project_name.ino
 
 Bomb::Bomb(){
-    Timer=180;
+    Timer=300;
 
     // initialize the LED pin as an output:
     
@@ -31,7 +31,8 @@ Bomb::Bomb(){
 void Bomb::AddError(){
     Error++;
     Update++;
-    Play_Music("error");
+    if (Error<3)
+        Play_Music("error");
 }
 
 void Bomb::AddSuccess(){
@@ -53,10 +54,9 @@ void Bomb::Verify() {
             Play_Music("Bravo");
     }
     if ( Update == 1 || Update == 2 || Update == 3) {
-        Print_Error( Error); // On affiche Err 1 ou Err 2
+         Print_Error( Error); // On affiche Err 1 ou Err 2
         Switch_Error_LED();
-        if ( Error ==3){
-            Error++;
+        if ( Error >2){
             const uint8_t LOSE[] = {
                 SEG_D | SEG_E | SEG_F ,                          // L
                 SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F,   // O
@@ -65,8 +65,6 @@ void Bomb::Verify() {
                 };
 
             display.setSegments(LOSE);
-            Play_Music("boom2");
-            delay(1500);
             Play_Music("cri");
         }
         Update--;

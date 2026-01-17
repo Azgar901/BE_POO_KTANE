@@ -20,7 +20,7 @@ void Thread:: stateThread(){
       for (int i=9;i<14; i++){
           state=digitalRead(i); 
           if(state==HIGH){
-              if (i!=13){
+              if (i!=12){
                 bombp->AddError();
                 bombp->AddError();
                 bombp->AddError();

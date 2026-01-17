@@ -86,7 +86,7 @@ void Simon::FlashLed0() {
   if(BB_temp){
     //Serial.println(BB_temp);
     currentMillis_B=millis();
-    if((currentMillis_B - previousMillis_B)>=100) {
+    if((currentMillis_B - previousMillis_B)>=500) {
       LED_OFF('B');
       if (BB_temp == 1) {
         
@@ -117,7 +117,7 @@ void Simon::FlashLed0() {
   }
     if(BR_temp) {
       currentMillis_R=millis();
-      if((currentMillis_R - previousMillis_R)>=100) {
+      if((currentMillis_R - previousMillis_R)>=500) {
         LED_OFF('R');
         if (BR_temp == 1) {
           if (Tab_Error0[stage][Nb_Button] =='R'){
@@ -144,7 +144,7 @@ void Simon::FlashLed0() {
     }
     if(BJ_temp) {
       currentMillis_J=millis();
-      if((currentMillis_J - previousMillis_J)>=100) {
+      if((currentMillis_J - previousMillis_J)>=500) {
         LED_OFF('J');
         if (BJ_temp == 1) {
           if (Tab_Error0[stage][Nb_Button] =='J'){
@@ -171,7 +171,7 @@ void Simon::FlashLed0() {
     }
     if(BV_temp) {
       currentMillis_V=millis();
-      if((currentMillis_V - previousMillis_V)>=100) {
+      if((currentMillis_V - previousMillis_V)>=500) {
         LED_OFF('V');
         if (BV_temp == 1) {
           if (Tab_Error0[stage][Nb_Button] =='V'){
@@ -245,7 +245,7 @@ void Simon::FlashLed1() {
   if(BB_temp){
     //Serial.println(BB_temp);
     currentMillis_B=millis();
-    if((currentMillis_B - previousMillis_B)>=100) {
+    if((currentMillis_B - previousMillis_B)>=500) {
       LED_OFF('B');
       if (BB_temp == 1) {
 
@@ -276,7 +276,7 @@ void Simon::FlashLed1() {
   }
     if(BR_temp) {
       currentMillis_R=millis();
-      if((currentMillis_R - previousMillis_R)>=100) {
+      if((currentMillis_R - previousMillis_R)>=500) {
         LED_OFF('R');
         if (BR_temp == 1) {
           if (Tab_Error1[stage][Nb_Button] =='R'){
@@ -303,7 +303,7 @@ void Simon::FlashLed1() {
     }
     if(BJ_temp) {
       currentMillis_J=millis();
-      if((currentMillis_J - previousMillis_J)>=100) {
+      if((currentMillis_J - previousMillis_J)>=500) {
         LED_OFF('J');
         if (BJ_temp == 1) {
           if (Tab_Error1[stage][Nb_Button] =='J'){
@@ -330,7 +330,7 @@ void Simon::FlashLed1() {
     }
     if(BV_temp) {
       currentMillis_V=millis();
-      if((currentMillis_V - previousMillis_V)>=100) {
+      if((currentMillis_V - previousMillis_V)>=500) {
         LED_OFF('V');
         if (BV_temp == 1) {
           if (Tab_Error1[stage][Nb_Button] =='V'){
@@ -404,7 +404,7 @@ void Simon::FlashLed2() {
   if(BB_temp){
     //Serial.println(BB_temp);
     currentMillis_B=millis();
-    if((currentMillis_B - previousMillis_B)>=100) {
+    if((currentMillis_B - previousMillis_B)>=500) {
       LED_OFF('B');
       if (BB_temp == 1) {
 
@@ -435,7 +435,7 @@ void Simon::FlashLed2() {
   }
     if(BR_temp) {
       currentMillis_R=millis();
-      if((currentMillis_R - previousMillis_R)>=100) {
+      if((currentMillis_R - previousMillis_R)>=500) {
         LED_OFF('R');
         if (BR_temp == 1) {
           if (Tab_Error2[stage][Nb_Button] =='R'){
@@ -462,7 +462,7 @@ void Simon::FlashLed2() {
     }
     if(BJ_temp) {
       currentMillis_J=millis();
-      if((currentMillis_J - previousMillis_J)>=100) {
+      if((currentMillis_J - previousMillis_J)>=500) {
         LED_OFF('J');
         if (BJ_temp == 1) {
           if (Tab_Error2[stage][Nb_Button] =='J'){
@@ -489,7 +489,7 @@ void Simon::FlashLed2() {
     }
     if(BV_temp) {
       currentMillis_V=millis();
-      if((currentMillis_V - previousMillis_V)>=100) {
+      if((currentMillis_V - previousMillis_V)>=500) {
         LED_OFF('V');
         if (BV_temp == 1) {
           if (Tab_Error2[stage][Nb_Button] =='V'){

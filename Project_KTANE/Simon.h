@@ -51,15 +51,15 @@ class Simon: public ModuleBase {
         {'J', 'V', ' ', ' ', ' '}, // Stage 1
         {'J', 'V', 'B', ' ', ' '}, // Stage 2
         {'J', 'V', 'B', 'J', ' '}, // Stage 3
-        {'J', 'V', 'B', 'J', 'V'}  // Stage 4
+        {'J', 'V', 'B', 'J', 'R'}  // Stage 4
     };
 
     char Tab_Error2[5][6] = {
         {'V',' ',' ',' ',' ',' '},
         {'V', 'R', ' ', ' ', ' '}, // Stage 1
         {'V', 'R', 'J', ' ', ' '}, // Stage 2
-        {'V', 'R', 'J', 'B', ' '}, // Stage 3
-        {'V', 'R', 'J', 'B', 'R'}  // Stage 4
+        {'V', 'R', 'J', 'V', ' '}, // Stage 3
+        {'V', 'R', 'J', 'V', 'B'}  // Stage 4
     };
 
 
